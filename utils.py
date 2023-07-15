@@ -113,26 +113,34 @@ class System:
 
     def add_professor(self, professor: Professor ):
         self.cursor.execute(
-            "INSERT INTO profesores VALUES({0},{1},{2},{3})".format())
+            "INSERT INTO profesores VALUES(?,?,?,?)",
+            (professor.dni, professor.name, professor.lastname, professor.email)
+        )
 
     
     def create_new_course(self, course: Course):
         self.cursor.execute(
-            "INSERT INTO cursos VALUES({0},{1},{2},{3})".format(
-            course.course_id, course.subject, course.professor.dni, course.level))
+            "INSERT INTO cursos VALUES(?,?,?,?)",
+            (course.course_id, course.subject, course.professor.dni, course.level)
+        )
 
 
     def assign_course(self, course: Course, professor: Professor):
         self.cursor.execute(
-            "UPDATE cursos SET dni = {0} WHERE id_curso = {1}".format(
-            professor.dni, course.course_id))
+            "UPDATE cursos SET dni = ? WHERE id_curso = ?",
+            (professor.dni, course.course_id)
+        )
         
 
     def new_inscription(self, student: Student, course: Course, inscription: Inscription):
         self.cursor.execute(
-            "INSERT INTO inscripciones VALUES(dni={0},id_curso{1})".format(
-            student.dni, course.course_id ))
+            "INSERT INTO inscripciones VALUES(dni=?,id_curso=?)",
+            (student.dni, course.course_id )
+        )
+
         inscription.inscription_id = self.cursor.execute(
-            "SELECT id_inscripcion FROM inscripciones WHERE dni={0}".format(student.dni))
+            "SELECT id_inscripcion FROM inscripciones WHERE dni=?",
+            (student.dni)
+        )
 
      

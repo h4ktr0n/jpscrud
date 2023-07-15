@@ -9,6 +9,14 @@ from gui import ttk
 
 
 def main():
+
+    connection = utils.sqlite3.connect("INSTITUTO_JUAN_P_SEGADE.sqlite")      # Se conecta a la base de datos, y en caso de que no exista, la crea.
+    cursor = connection.cursor()                                        # Se genera el cursor para insertar las queries SQL.
+    if bool(utils.init(cursor, connection)):
+        connection.close()
+        print("Initialization succesful")
+        
+
     gui.run_gui()
     
     # main_label = ttk.Label(window, text="INSTITUTO JUAN P SEGADE")
@@ -17,11 +25,7 @@ def main():
     # gui.options_frame(window)
 
 
-    connection = utils.sqlite3.connect("INSTITUTO_JUAN_P_SEGADE.sqlite")      # Se conecta a la base de datos, y en caso de que no exista, la crea.
-    cursor = connection.cursor()                                        # Se genera el cursor para insertar las queries SQL.
-    if bool(utils.init(cursor, connection)):
-        connection.close()
-        print("Initialization succesful")
+
     
 
 if __name__ == '__main__':
