@@ -1,1 +1,5 @@
 __pycache__/
+bin/
+lib/
+pyvenv.cfg
+INSTITUTO_JUAN_P_SEGADE.sqlite
